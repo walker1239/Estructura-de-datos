@@ -8,8 +8,6 @@ using namespace std;
 template<class T>
 class queue : public linked_list<T>
 {
-	private:
-		node<T> * cola;
 	public:
 		queue();
 		void push(const T & d);
