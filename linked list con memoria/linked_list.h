@@ -50,7 +50,7 @@ class linked_list
 		T getLastDato();
 		void print();
 	private:
-		bool find(node<T>*p,const T & d);
+		bool find(node<T>* &p,const T & d);
 
 		class iterator
 		{
