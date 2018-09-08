@@ -37,6 +37,9 @@ linked_list<T>::~linked_list(){
 template<class T>
 void linked_list<T>::insert(const T & d){
 	node<T> *n;
+	node<T> *p;
+	if(find(p,d))
+		return;
 	n=p_free;
 	n->dato=d;
 	if(!p_head){
@@ -46,7 +49,7 @@ void linked_list<T>::insert(const T & d){
 	if (p_free->p_next){
 		p_free=p_free->p_next;
 		p_free->p_next=NULL;
-		n->p_next=p_free;
+		p->p_next=n;
 		return;
 	}
 	p_free=&list[c];
@@ -60,14 +63,30 @@ void linked_list<T>::remove(const T & d){
 		if (p_free->p_next==NULL)
 		{
 			p_free->p_next=n;
-			return;
 		}		
-		node<T> *temp;
-		temp=p_free;
-		while(temp->p_next){
-			temp=temp->p_next;
+		else
+		{
+			node<T> *temp;
+			temp=p_free;
+			while(temp->p_next)
+			{
+				temp=temp->p_next;
+			}
+			temp=n;
 		}
-		temp=n;
+		if (n->p_next)
+		{
+			node<T> *tmp;
+			tmp=p_free;
+			while(1){
+				if(tmp->p_next->dato==n->dato)
+					break;
+				tmp=tmp->p_next;
+			}
+			tmp=n->p_next;
+		}
+		n->p_next=NULL;
+		
 	}
 }
 /*template<class T>
@@ -99,14 +118,13 @@ bool linked_list<T>::find(const T & d){
 	find(p,d);
 }
 template<class T>
-bool linked_list<T>::find(node<T>*p ,const T & d){
+bool linked_list<T>::find(node<T>* &p ,const T & d){
 	p=p_head;
 	while (p!=NULL){
 		if(p->dato==d){
 			return 1;
 		}
 		p=p->p_next;
-		cout<<"1";
 	}
 	return 0;
 
@@ -160,12 +178,10 @@ T linked_list<T>::linked_list::getLastDato(){
 }
 template<class T>
 void linked_list<T>::print(){
-	node<T> *tmp= &list[0];
-	for (int i = 0; i<c; i++)
-	{
-		tmp= &list[i];
+	node<T> *tmp= p_head;
+	while(tmp!=NULL){
 		tmp->print();
-		
+		tmp=tmp->p_next;
 	}
 	cout<<endl;
 }
