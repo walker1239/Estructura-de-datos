@@ -1,12 +1,20 @@
 #include "avl.h"
 int main()
 {
-	avl<int, int> s;
-	s.insert(1,2);s.print();
-	s.insert(2,3);s.print();
-	s.insert(3,2);s.print();
-	s.insert(4,3);s.print();
-	s.insert(5,2);s.print();
-	s.insert(6,3);s.print();
+	avl<int,int> avl;
+
+
+    for(int i=1;i<7;i++){
+        avl.insert(i,1);  
+        avl.printOficial(i);
+
+    }
+
+    for(int i=1;i<7;i++){
+        avl.remove(i);
+        avl.printOficial(i);
+    }
+
+
 	return 0;
 }
