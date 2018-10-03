@@ -9,5 +9,9 @@ int main()
         avl.printARBOL(i);
 
     }
+    avl.del(8);
+    avl.del(4);
+    avl.del(6);
+    avl.printARBOL(11);
 	return 0;
 }

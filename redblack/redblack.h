@@ -39,18 +39,18 @@ class redblack
 		redblack();
 		virtual ~redblack();
 		bool find(const K & _key, D & _data);
-		bool remove(const K &_key);
+		void del(const K &_key);
 		void insert(const K & key,const D & data);
 	    void fixInsertRBTree(node<K,D> *&ptr,bool side);
 		bool turnSide(node<K,D> *&n, bool side);
 	    void printARBOL(int num);
+	    node<K,D>* successor(node<K,D> *p);
 	
 	private:
 		void printARBOL(ofstream & es,node<K,D> *n);
 		void printCOLOR(ofstream & es,node<K,D> *n);
 		bool insert(node<K, D> **n,const K & _key, const D & _data);
 		bool find(const K & _key, node<K, D> **& n);
-		node<K,D>* remove(node<K,D>**n, const K &_key);
 
 };
 

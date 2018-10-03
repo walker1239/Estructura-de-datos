@@ -142,45 +142,147 @@ void node<K,D>::setColor(bool _color) {
     this->color = _color;
 }
 template<class K,class D>
-bool redblack<K,D>::remove(const K &_key)
+node<K,D>* redblack<K,D>::successor(node<K,D> *p)
 {
-    node<K,D>**n;
-    n=&root;
-    remove(n,_key);
-
+      node<K,D> *y=NULL;
+     if(p->p_child[0]!=NULL)
+     {
+         y=p->p_child[0];
+         while(y->p_child[1]!=NULL)
+              y=y->p_child[1];
+     }
+     else
+     {
+         y=p->p_child[1];
+         while(y->p_child[0]!=NULL)
+              y=y->p_child[0];
+     }
+     return y;
 }
 template<class K,class D>
-node<K,D>* redblack<K,D>::remove(node<K,D>**n, const K &_key)
+void redblack<K,D>::del(const K & x)
 {
-    if(!root)
-        return NULL;
-    if(_key == (*n)->key)
-    {
-        if((*n)->p_child[1] == NULL)
-        {
-            node<K,D>* temp = (*n);
-            (*n) = (*n)->p_child[0];
-            delete (temp);
-            return (*n);
-        }
-        else
-        {
-            node<K,D>* temp = (*n)->p_child[1];
-            while(temp->p_child[0])
-                temp = temp->p_child[0];
-            (*n)->key = temp->key;
-            (*n)->p_child[1] = remove(&(*n)->p_child[1], temp->key);
-        }
+     if(root==NULL)
+     {
+           return ;
+     }
+     node<K,D> **p;
+     p=&root;
+     node<K,D> *y=NULL;
+     node<K,D> *q=NULL;
+     bool found=0;
+     node<K, D> ** _n;
+    if(find(x,p)){
+        found=1;
     }
-    bool child=_key > (*n)->key;
-        (*n)->p_child[child] = remove(&(*n)->p_child[child], _key);
-    
-    
-    (*n)->height = max((*n)->p_child[0]->getheight(), (*n)->p_child[1]->getheight() )+ 1;
-
-    balance(n,child);
-    return (*n);
+    if(!found)return ;
+    else
+     { 
+         if((*p)->p_child[0]==NULL||(*p)->p_child[1]==NULL)
+              y=(*p);
+         else
+              y=successor(*p);
+         if(y->p_child[0]!=NULL)
+              q=y->p_child[0];
+         else
+         {
+              if(y->p_child[1]!=NULL)
+                   q=y->p_child[1];
+              else
+                   q=NULL;
+         }
+         if(q!=NULL)
+              q->parent=y->parent;
+         if(y->parent==NULL)
+              root=q;
+         else
+         {
+             if(y==y->parent->p_child[0])
+                y->parent->p_child[0]=q;
+             else
+                y->parent->p_child[1]=q;
+         }
+         if(y!=(*p))
+         {
+             (*p)->color=y->color;
+             (*p)->key=y->key;
+         }
+         if(y->color==0 && q != NULL )
+             fixInsertRBTree(q,0);
+     }
 }
+
+/*void RBtree::delfix(node *p)
+{
+    node *s;
+    while(p!=root&&p->color=='b')
+    {
+          if(p->parent->left==p)
+          {
+                  s=p->parent->right;
+                  if(s->color=='r')
+                  {
+                         s->color='b';
+                         p->parent->color='r';
+                         leftrotate(p->parent);
+                         s=p->parent->right;
+                  }
+                  if(s->right->color=='b'&&s->left->color=='b')
+                  {
+                         s->color='r';
+                         p=p->parent;
+                  }
+                  else
+                  {
+                      if(s->right->color=='b')
+                      {
+                             s->left->color=='b';
+                             s->color='r';
+                             rightrotate(s);
+                             s=p->parent->right;
+                      }
+                      s->color=p->parent->color;
+                      p->parent->color='b';
+                      s->right->color='b';
+                      leftrotate(p->parent);
+                      p=root;
+                  }
+          }
+          else
+          {
+                  s=p->parent->left;
+                  if(s->color=='r')
+                  {
+                        s->color='b';
+                        p->parent->color='r';
+                        rightrotate(p->parent);
+                        s=p->parent->left;
+                  }
+                  if(s->left->color=='b'&&s->right->color=='b')
+                  {
+                        s->color='r';
+                        p=p->parent;
+                  }
+                  else
+                  {
+                        if(s->left->color=='b')
+                        {
+                              s->right->color='b';
+                              s->color='r';
+                              leftrotate(s);
+                              s=p->parent->left;
+                        }
+                        s->color=p->parent->color;
+                        p->parent->color='b';
+                        s->left->color='b';
+                        rightrotate(p->parent);
+                        p=root;
+                  }
+          }
+       p->color='b';
+       root->color='b';
+    }
+}*/
 /*template<class K,class D>
 void redblack<K,D>::print()
 {
