@@ -1,17 +1,22 @@
 #include "redblack.h"
-int main()
-{
-	redblack<int,int> avl;
+#include <bits/stdc++.h>
+#include <time.h>
+using namespace std;
 
+int main(){
+    
+    redblack<int,int> avl;
 
-    for(int i=1;i<11;i++){
-        avl.insert(i,1);  
-        avl.printARBOL(i);
+    int iSecret, jSecret;
+    srand (time(NULL));
 
+    for(int i=1;i<30;i++){
+        iSecret = rand() % 30 + 1;
+        avl.insert(i,1);
+            cout<<"Se inserto "<<iSecret<<endl;
+            avl.printARBOL(iSecret);
     }
-    avl.del(8);
-    avl.del(4);
-    avl.del(6);
-    avl.printARBOL(11);
+       
+
 	return 0;
 }
