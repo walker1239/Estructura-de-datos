@@ -16,6 +16,11 @@ class MinHeap
       arr = new T[cap];
     }
 
+    ~MinHeap()
+    {
+        delete [] arr;
+    }
+
     int parent(int i){ 
       return (i-1)/2; 
     }

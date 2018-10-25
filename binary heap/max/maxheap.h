@@ -16,6 +16,11 @@ class MaxHeap
       arr = new T[cap]; 
     }
 
+    ~MaxHeap()
+    {
+        delete [] arr;
+    }
+
     int parent(int i){ 
       return (i-1)/2; 
     }
