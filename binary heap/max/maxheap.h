@@ -4,17 +4,15 @@
 #include<iostream>  
 using namespace std; 
   
-template<class T,size_t _cap=100>
+template<class T,size_t cap=100>
 class MaxHeap 
 { 
     T*arr;
-    size_t cap;
     int n;
   public:
 
     MaxHeap(){ 
       n=0; 
-      cap=_cap;
       arr = new T[cap]; 
     }
 
@@ -86,7 +84,32 @@ class MaxHeap
       *x = *y; 
       *y = temp; 
     } 
-
+    void convert(T _arr[],int _n){
+      n=0;
+      int c;
+      if (cap>_n)
+        c=_n;
+      else 
+        c=cap;
+      for(int i=0;i<c;i++){
+        arr[i]=_arr[i];
+        n++;
+      }
+    }
+    void heapSort() 
+    { 
+      int tmp=n;
+      for (int i = n / 2 - 1; i >= 0; i--){
+        recursiver(i); 
+      }
+      for (int i=n-1; i>=0; i--) 
+      { 
+          n=i;
+          swap(&arr[0], &arr[i]);  
+          recursiver(0); 
+      } 
+      n=tmp;
+    }
     void print(){
       for(int i=0;i<n;i++){
         cout<<arr[i]<<',';
