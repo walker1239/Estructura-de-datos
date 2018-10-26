@@ -13,7 +13,7 @@ class MaxHeap
 
     MaxHeap(){ 
       n=0; 
-      arr = new T[cap]; 
+      arr = new T[cap];
     }
 
     ~MaxHeap()
@@ -34,7 +34,7 @@ class MaxHeap
     } 
 
     int getMax(){ 
-      return arr[0]; 
+      return arr[n-1]; 
     } 
     
     void insertKey(T k){ 
@@ -164,6 +164,42 @@ class MaxHeap
           recursivei(parent(i)); 
       } 
     } 
+    void prints(){
+        string num_arch = to_string(1);
+        string ext1 = ".dot";
+        string num_xt1=""+ num_arch +""+ ext1 +"";
+        ofstream es(num_xt1);
+
+        string s = to_string(1);
+        string pt1="dot.lnk -Tpng  < ";
+        string pt2=" > ";
+        string pt3=".png";
+        string rt=""+ pt1 +""+ num_xt1 +""+ pt2 +""+ s +""+ pt3 +"";
+        const char *buffer = rt.c_str();
+
+        es<<"graph {"<<endl;
+        es<<arr[0]<<endl;
+        printos(es);
+        es<<"}"<<endl;
+        es.close();
+        system(buffer);
+    }
+
+    void printos(ofstream & es){
+        int c=0;
+        while(c<n){
+            int l=left(c);
+            int r=right(c);
+            if(l<n){
+                es<<arr[c]<<"--"<<arr[l]<<endl;
+            }
+            if(r<n){
+                es<<arr[c]<<"--"<<arr[r]<<endl;
+            }
+            c++;
+        }
+    }
+
 }; 
 
 #endif
