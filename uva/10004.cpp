@@ -68,6 +68,5 @@ int main()
              while(!q.empty())
                 q.pop();
     }
-    cout<<endl;
     return 0;
 }
