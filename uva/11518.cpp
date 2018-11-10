@@ -3,7 +3,7 @@
 #include <vector>
 #include <iostream>
 using namespace std;
-#define tam 10005
+#define tam 10000
 
 using namespace std;
 
@@ -13,11 +13,14 @@ bool visitado[tam];
 
 void dfs(int u)
 {
+	if (visitado[u])
+	{
+		return;
+	}
 	total++;
 	visitado[u] = true;
-	for(int v = 0; v < grafo[u].size(); v++){
-		if(!visitado[grafo[u][v]])			
-			dfs(grafo[u][v]);
+	for(auto v:grafo[u]){		
+		dfs(v);
 	}
 }
 
@@ -45,6 +48,7 @@ int main()
 		for(int i = 0; i < n; i++){
 			grafo[i].clear();
 		}
+		cout<<endl;
 	}
 	return 0;
 }

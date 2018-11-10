@@ -1,5 +1,3 @@
-//usuario walker1239
-
 #include<iostream>
 #include<queue>
 #include<vector>
@@ -60,13 +58,15 @@ int main()
         color[0]=1;
         q.push(0);
         bfs();
-        if(flag==1)
+        if(flag==1){
             cout<<"NOT BICOLORABLE."<<endl;
-        else cout<<"BICOLORABLE."<<endl;;
+        }
+        else {cout<<"BICOLORABLE."<<endl;}
         for(int i=0; i<=n; i++)
             v[i].clear();
              while(!q.empty())
                 q.pop();
     }
+
     return 0;
 }
