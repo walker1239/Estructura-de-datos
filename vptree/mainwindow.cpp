@@ -11,10 +11,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     pixmap=new QPixmap(641,400);
     pixmap->fill();
-    //circulo=new QPixmap(400,300);
-    //circulo->fill();
-
-    //color.setNamedColor("black");
     color.setRgb(0,0,0,255);
     lapiz=new QPen(color);
 
