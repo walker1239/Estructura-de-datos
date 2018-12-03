@@ -1,86 +1,108 @@
+#include <cstdio>
+#include <cstring>
 #include <iostream>
-//#include <string>
+#include <vector>
+#include <string>
+
 using namespace std;
 
+char word[1001];
+int L,best,found[1000];
+vector<int> poss;
+
+
 class node{
-  private:
-    node * child[4];
-    char data;
+private:
     int count;
-  public:
-    node(char dat,int _count =1){
-      data=dat;
-      count=_count;
-      for (int i = 0; i < 4; ++i)
-      {
-      	child[i]=NULL;
-      }
+    node *child[4];
+public:
+    node(){
+        count = 0;
+        for(int i =0;i<4;i++){
+          child[i]=NULL;
+        }
     }
-  friend class sufftrie;
+
+friend class Trie;
 };
 
-class sufftrie
-{
-  private:
-	node *phead;
-  public:
-    sufftrie(){
-      phead=new node('a',0);
+class Trie{
+    node *root;
+    public:
+    Trie(){
+        root = new node();  
     }
-    void insert1(string word){
-      insert(phead,word);
-    }
-    void insert(node* tmp,string word){
-      if (word=="")
-      {
-      	return;
-      }
-      string str="";
-      for(int i=0;i<4;i++){
-        if(tmp->child[i]!=NULL){
-          if(tmp->child[i]->data==word[0]){
-            tmp->child[i]->count++;
-            //str=word[i];
-            for(int j=1;j<word.size();j++){
-              str+=word[j];
+    
+    void insert(int pos){
+        node *tmp = root;
+        string str;
+        int nxt;
+        for(int i = pos;i < L;++i){
+            str += word[i];
+            switch(word[i]){
+              case 'A':
+                nxt=0;
+                break;
+              case 'C':
+                nxt=1;
+                break;
+              case 'G':
+                nxt=2;
+                break;
+              case 'T':
+                nxt=3;
+                break;
+            }      
+            if(tmp->child[nxt] == NULL)
+                tmp->child[nxt] = new node();
+            tmp = tmp->child[nxt];
+            ++tmp->count;
+            
+            if(tmp->count > 1){
+                if(i-pos+1 > best){
+                    poss.clear();
+                    best = i-pos+1;
+                }
+                
+                if(i-pos+1 == best){
+                    poss.push_back(pos);
+                    found[pos] = tmp->count;
+                }
             }
-            insert(tmp->child[i],str);
-            return;
-          }
         }
-        tmp->child[i]=new node(word[0]);
-        cout<<word.size();
-        for(int j=1;j<word.size();j++){
-          str+=word[j];
-        }
-        insert(tmp->child[i],str);
-        return;
-      }
-    }
-    void longest(node *tmp=phead,string str = ""){
-    	string str2="";
-    	for(int i=0;i<4;i++){
-    		if(tmp->child[i]!=NULL){
-    			if(tmp->child[i]->count>1){
-    				str2+=tmp->child[i]->data;
-    				longest(tmp->child[i],)
-    			}
-    		}
-    	}
     }
 };
 
-int main(int argc, char const *argv[])
-{
-  cout<<'a';
-  sufftrie s;
-  s.insert1("CGAT");
-  s.insert1("GGAT");
-  s.insert1("AGAT");
-  s.insert1("TGAT");
-  s.insert1("GATA");
-  cout<<"walker";
-	//cin>>T;
-
-	return 0;
+int main(){
+    int t;
+    cin>>t;
+    Trie *adn;
+    adn = new Trie();
+    while(t--){
+        cin>>word;
+        L = strlen(word);
+        best = -1;        
+        poss.clear();
+        for(int i = 0;i < L;++i){
+            adn->insert(i);
+        }
+        delete(adn);
+        if(best == -1){
+            cout<<"No repetitions found!"<<endl;
+        }else{
+            string ans = "Z";
+            int ind,sz = poss.size();
+            for(int i = 0;i < sz;++i){
+                int x = poss[i];
+                string str = string(word + x,word + (x+best));
+                
+                if(str <= ans){
+                    ans = str;
+                    ind = x;
+                }
+            }       
+            printf("%s %d\n",ans.c_str(),found[ind]);
+        }
+    }
+    return 0;
 }
