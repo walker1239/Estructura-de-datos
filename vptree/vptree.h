@@ -6,6 +6,7 @@
 #include <time.h>
 #include <queue>
 #include <cmath>
+#include <limits>
 #include <QPainter>
 #include <QTimer>
 using namespace std;
@@ -22,10 +23,10 @@ class node
         double radio;
         int x,y;
         double distancia;
-        int id;
+        int index;
 
     public:
-        node(int _x, int _y,const D & _data,int _id);
+        node(int _x, int _y,const D & _data,int i);
         virtual ~node();
 
     friend class vptree<D>;
@@ -45,14 +46,12 @@ public:
     node<D> * select_best(vector<node<D>* >point);
     void make_vptree(QPainter *q);
     node<D>* create_vptree(vector<node<D>* >point,QPainter *p);
-    void search (int x,int y, int n, vector<node<D>*>result);
-    void search (node<D>* tmp,int x,int y, int n, priority_queue<int> heap);
-    float d(int x1,int x2, int y1, int y2){
-      return sqrt(((x1 - x2)*(x1-x2)) + ((y1 - y2) * (y1 - y2)));
-    }
+    void search (int x,int y, int n,QPainter *q);
+    void search (node<D>* tmp,node<D>* query, int n, priority_queue<pair<double, int>> &heap);
 };
+
 template<class D>
-node<D>::node(int _x, int _y,const D & _data,int _id){
+node<D>::node(int _x, int _y,const D & _data, int i){
   x=_x;
   y=_y;
   data=_data;
@@ -60,7 +59,7 @@ node<D>::node(int _x, int _y,const D & _data,int _id){
   p_child[0]=NULL;
   radio=0;
   distancia=0;
-  id=_id;
+  index=i;
 }
 template<class D>
 node<D>::~node(){
@@ -83,13 +82,61 @@ void vptree<D>::insert(int _x,int _y, D _data){
   points.push_back(temp);
 }
 template <class D>
-void vptree<D>::search (int x,int y, int n, vector<node<D>* > result){
-    priority_queue<int> heap;
-    search(root,x,y,n,heap);
-
+void vptree<D>::search (int x,int y, int n, QPainter *q){
+    cout<<5;
+    priority_queue<pair<double,int> > heap;
+    cout<<6;
+    node<D>*query=new node<D>(x,y,root->data,0);
+    query->distancia=std::numeric_limits<double>::max();
+    cout<<3;
+    search(root,query,n,heap);
+    q->setPen("red");
+    while( !heap.empty() ) {
+        cout<<"a";
+                q->drawEllipse(points[heap.top().second]->x-(2),points[heap.top().second]->y-(2),4,4);
+                heap.pop();
+            }
 }
 template <class D>
-void vptree<D>::search (node<D>*root,int x,int y, int n, priority_queue<int> heap){}
+void vptree<D>::search (node<D>*tmp,node<D>* query, int n, priority_queue<pair<double,int>> &heap){
+    if(tmp==NULL) return;
+        cout<<2;
+        double dis=d(tmp,query);
+        if(dis<query->distancia){
+            if(heap.size()==n) heap.pop();
+
+            heap.push(make_pair(dis,tmp->index));
+                          cout<<3;
+
+            if(heap.size()==n) {
+                query->distancia=heap.top().first;
+            }
+        }
+
+        if (tmp->p_child[0]==NULL and tmp->p_child[1]==NULL) return;
+        if ( dis < tmp->radio) {
+                    if ( dis - query->distancia <= tmp->radio ) {
+                        search( tmp->p_child[0], query, n, heap );
+                    }
+
+                    if ( dis + query->distancia >= tmp->radio ) {
+                        search( tmp->p_child[1], query, n, heap );
+                    }
+
+                } else {
+                    if ( dis + query->distancia >= tmp->radio ) {
+                        search( tmp->p_child[1], query, n, heap );
+                    }
+                    if ( dis - query->distancia <= tmp->radio ) {
+                        search( tmp->p_child[0], query, n, heap );
+                    }
+
+
+                }
+
+
+
+    }
 template<class D>
 node<D> *vptree<D>::select_best(vector<node<D>* >point){
   //cout<<point.size();
@@ -122,7 +169,7 @@ node<D> *vptree<D>::select_best(vector<node<D>* >point){
 template<class D>
 void vptree<D>::make_vptree(QPainter *q){
   create_vptree(points,q);
-  q->setPen("black");
+  q->setPen("white");
   q->drawPoint(root->x,root->y);
   q->drawEllipse(root->x-(root->radio),root->y-(root->radio),2*root->radio,2*root->radio);
 }
@@ -141,7 +188,7 @@ node<D> *vptree<D>::create_vptree(vector<node<D>* >point,QPainter *q){
     else
       l.push_back(point[j]);
   }
-  q->drawEllipse(temp->x-(1),temp->y-(1),2,2);
+  q->drawEllipse(temp->x-(0.5),temp->y-(0.5),1,1);
   q->drawEllipse(temp->x-(temp->radio),temp->y-(temp->radio),2*temp->radio,2*temp->radio);
   if(root==NULL)
       root=temp;
