@@ -48,6 +48,8 @@ public:
     node<D>* create_vptree(vector<node<D>* >point,QPainter *p);
     void search (int x,int y, int n,QPainter *q);
     void search (node<D>* tmp,node<D>* query, int n, priority_queue<pair<double, int>> &heap);
+    void print_points(QPainter * p);
+    void clear();
 };
 
 template<class D>
@@ -83,16 +85,14 @@ void vptree<D>::insert(int _x,int _y, D _data){
 }
 template <class D>
 void vptree<D>::search (int x,int y, int n, QPainter *q){
-    cout<<5;
     priority_queue<pair<double,int> > heap;
-    cout<<6;
     node<D>*query=new node<D>(x,y,root->data,0);
     query->distancia=std::numeric_limits<double>::max();
-    cout<<3;
     search(root,query,n,heap);
-    q->setPen("red");
+    QPen lapiz("red");
+    lapiz.setWidth(3);
+    q->setPen(lapiz);
     while( !heap.empty() ) {
-        cout<<"a";
                 q->drawEllipse(points[heap.top().second]->x-(2),points[heap.top().second]->y-(2),4,4);
                 heap.pop();
             }
@@ -100,43 +100,34 @@ void vptree<D>::search (int x,int y, int n, QPainter *q){
 template <class D>
 void vptree<D>::search (node<D>*tmp,node<D>* query, int n, priority_queue<pair<double,int>> &heap){
     if(tmp==NULL) return;
-        cout<<2;
-        double dis=d(tmp,query);
-        if(dis<query->distancia){
-            if(heap.size()==n) heap.pop();
+       double dis=d(tmp,query);
+       if(dis<query->distancia){
+          if(heap.size()==n) heap.pop();
+          heap.push(make_pair(dis,tmp->index));
+          if(heap.size()==n) {
+             query->distancia=heap.top().first;
+          }
+       }
 
-            heap.push(make_pair(dis,tmp->index));
-                          cout<<3;
+       if (tmp->p_child[0]==NULL and tmp->p_child[1]==NULL) return;
+       if ( dis < tmp->radio) {
+         if ( dis - query->distancia <= tmp->radio ) {
+            search( tmp->p_child[0], query, n, heap );
+         }
 
-            if(heap.size()==n) {
-                query->distancia=heap.top().first;
-            }
+         if ( dis + query->distancia >= tmp->radio ) {
+            search( tmp->p_child[1], query, n, heap );
+         }
+
+        } else {
+         if ( dis + query->distancia >= tmp->radio ) {
+            search( tmp->p_child[1], query, n, heap );
+         }
+         if ( dis - query->distancia <= tmp->radio ) {
+            search( tmp->p_child[0], query, n, heap );
+         }
         }
-
-        if (tmp->p_child[0]==NULL and tmp->p_child[1]==NULL) return;
-        if ( dis < tmp->radio) {
-                    if ( dis - query->distancia <= tmp->radio ) {
-                        search( tmp->p_child[0], query, n, heap );
-                    }
-
-                    if ( dis + query->distancia >= tmp->radio ) {
-                        search( tmp->p_child[1], query, n, heap );
-                    }
-
-                } else {
-                    if ( dis + query->distancia >= tmp->radio ) {
-                        search( tmp->p_child[1], query, n, heap );
-                    }
-                    if ( dis - query->distancia <= tmp->radio ) {
-                        search( tmp->p_child[0], query, n, heap );
-                    }
-
-
-                }
-
-
-
-    }
+}
 template<class D>
 node<D> *vptree<D>::select_best(vector<node<D>* >point){
   //cout<<point.size();
@@ -195,6 +186,19 @@ node<D> *vptree<D>::create_vptree(vector<node<D>* >point,QPainter *q){
   temp->p_child[0]=create_vptree(l,q);
   temp->p_child[1]=create_vptree(r,q);
   return temp;
+}
+
+template<class D>
+void vptree<D>::print_points(QPainter* q){
+    for(int i=0;i<points.size();i++){
+        q->drawEllipse(points[i]->x-(0.5),points[i]->y-(0.5),1,1);
+    }
+}
+
+template<class D>
+void vptree<D>::clear(){
+    points.clear();
+    root=NULL;
 }
 
 #endif // VPTREE_H

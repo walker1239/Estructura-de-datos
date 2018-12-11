@@ -27,6 +27,232 @@
      <string>TextLabel</string>
     </property>
    </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>20</y>
+      <width>81</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>COORDENADA X</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>1190</x>
+      <y>20</y>
+      <width>91</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>COORDENADA Y</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>100</y>
+      <width>47</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>DATO</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>1140</x>
+      <y>170</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>INSERT</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>200</y>
+      <width>47</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>n</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>1120</x>
+      <y>260</y>
+      <width>111</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>INSERT RAMDON</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>1140</x>
+      <y>580</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>SEARCH</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>510</y>
+      <width>47</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>k</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="make">
+    <property name="geometry">
+     <rect>
+      <x>1090</x>
+      <y>310</y>
+      <width>181</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>MAKE VP TREE</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="clean">
+    <property name="geometry">
+     <rect>
+      <x>1090</x>
+      <y>340</y>
+      <width>181</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>CLEAN VP TREE</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="corx">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>50</y>
+      <width>91</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="cory">
+    <property name="geometry">
+     <rect>
+      <x>1192</x>
+      <y>50</y>
+      <width>91</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="dato_2">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>130</y>
+      <width>201</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="ninsert">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>220</y>
+      <width>201</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>1070</x>
+      <y>410</y>
+      <width>81</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>COORDENADA X</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="cory_search">
+    <property name="geometry">
+     <rect>
+      <x>1182</x>
+      <y>440</y>
+      <width>91</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>1180</x>
+      <y>410</y>
+      <width>91</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>COORDENADA Y</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="corx_search">
+    <property name="geometry">
+     <rect>
+      <x>1070</x>
+      <y>440</y>
+      <width>91</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="knodes">
+    <property name="geometry">
+     <rect>
+      <x>1070</x>
+      <y>530</y>
+      <width>201</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
