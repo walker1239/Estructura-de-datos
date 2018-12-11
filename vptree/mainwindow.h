@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 #include <QPainter>
 #include <QMainWindow>
+#include "vptree.h"
+#include <QTimer>
 
 namespace Ui {
 class MainWindow;
@@ -17,10 +19,10 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QPainter *q;
     QPixmap *pixmap;
     QPen *lapiz;
-    QPainter *q;
-    QColor color;
+    vptree<int> p;
 };
 
 #endif // MAINWINDOW_H
