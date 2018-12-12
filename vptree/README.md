@@ -9,12 +9,12 @@ Vantage point tree
 ## Description
 Vp tree implemented in c++. Qt creator is used in order to demonstrate how the code works.The vp tree are binary space partition trees that divide points according to the circle they form with respect to the radius. Those who are inside are the left children and those who are outside are the right children. So recursively until there are no points.
 
-## Build and Run
+## Compile
 
-### Compilation instruction:
+### Configure project:
 
 	double click on vptreee.pro
-  click in configure project
+  	click in configure project
 
 ### Finally execute:
 
@@ -70,7 +70,7 @@ public:
 ## Search
   - (O(log(n)))
   ![](https://github.com/walker1239/Estructura-de-datos/blob/master/vptree/img/search.PNG "search")
-### Implementation and theory
+## Implementation and theory
 Part of the implementation of search and the theory for the basic guide of the code was from the article: [Dynamic vp-Tree Indexing for n-Nearest Neighbor Search Given PairWise Distances](https://www.researchgate.net/publication/243134425_Dynamic_vp-Tree_Indexing_for_n-Nearest_Neighbor_Search_Given_PairWise_Distances) for more details.
 
 
