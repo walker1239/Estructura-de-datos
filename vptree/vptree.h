@@ -38,16 +38,17 @@ class vptree
 private:
     node<D>*root;
     vector<node<D> * > points;
+    node<D> * select_best(vector<node<D>* >point);
+    node<D>* create_vptree(vector<node<D>* >point,QPainter *p);
+    void search (node<D>* tmp,node<D>* query, int n, priority_queue<pair<double, int>> &heap);
+    float d(node<D>* p,node<D>* d);
+
 public:
     vptree();
-    float d(node<D>* p,node<D>* d);
     void insert(int x,int y, D data);
     //void insert(node<D> * point);
-    node<D> * select_best(vector<node<D>* >point);
     void make_vptree(QPainter *q);
-    node<D>* create_vptree(vector<node<D>* >point,QPainter *p);
     void search (int x,int y, int n,QPainter *q);
-    void search (node<D>* tmp,node<D>* query, int n, priority_queue<pair<double, int>> &heap);
     void print_points(QPainter * p);
     void clear();
 };
@@ -126,7 +127,7 @@ void vptree<D>::search (node<D>*tmp,node<D>* query, int n, priority_queue<pair<d
         }
 }
 template<class D>
-node<D> *vptree<D>::select_best(vector<node<D>* >point){
+node<D> *vptree<D>::select_best(vector<node<D>* > point){
   //cout<<point.size();
   int i;
   double mu=0;
@@ -166,12 +167,12 @@ node<D> *vptree<D>::create_vptree(vector<node<D>* >point,QPainter *q){
   if(point.size()==0)
       return NULL;
   node<D>*temp;
-  temp=select_best(point);
+  temp=select_best(&point);
   vector<node<D>*>l;
   vector<node<D>*>r;
   for(int j=0;j<point.size();j++){
     if (temp==point[j])continue;
-    if(temp->radio<=point[j]->distancia)
+    if(temp->radio<point[j]->distancia)
       r.push_back(point[j]);
     else
       l.push_back(point[j]);

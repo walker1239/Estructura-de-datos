@@ -53,6 +53,7 @@ void MainWindow::on_dato_2_editingFinished()
 
 void MainWindow::on_pushButton_pressed()
 {
+    q->setPen(*lapiz);
     p.insert(cx,611-cy,datx);
     p.print_points(q);
     ui->base->setPixmap(*pixmap);
@@ -68,6 +69,7 @@ void MainWindow::on_ninsert_editingFinished()
 
 void MainWindow::on_pushButton_2_pressed()
 {
+    q->setPen(*lapiz);
     int x,y;
     srand (time(NULL));
     for(int i=0;i<n;i++){
