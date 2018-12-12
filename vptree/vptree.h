@@ -89,9 +89,6 @@ void vptree<D>::search (int x,int y, int n, QPainter *q){
     node<D>*query=new node<D>(x,y,root->data,0);
     query->distancia=std::numeric_limits<double>::max();
     search(root,query,n,heap);
-    QPen lapiz("red");
-    lapiz.setWidth(3);
-    q->setPen(lapiz);
     while( !heap.empty() ) {
                 q->drawEllipse(points[heap.top().second]->x-(2),points[heap.top().second]->y-(2),4,4);
                 heap.pop();

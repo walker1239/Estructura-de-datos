@@ -85,6 +85,7 @@ void MainWindow::on_pushButton_2_pressed()
 void MainWindow::on_make_pressed()
 {
     p.make_vptree(q);
+    q->setPen(*lapiz);
     ui->base->setPixmap(*pixmap);
     ui->corx_search->setEnabled(1);
     ui->cory_search->setEnabled(1);
@@ -113,11 +114,16 @@ void MainWindow::on_knodes_editingFinished()
 
 void MainWindow::on_pushButton_3_clicked()
 {
-    lapiz->setColor("black");
-    p.print_points(q);
-    lapiz->setColor("green");
-    q->drawEllipse(cxs-2,611-cys-2,4,4);
+
+    lapiz->setColor("red");
+    q->setPen(*lapiz);
+    //ui->base->setPixmap(*pixmap);
     p.search(cxs,611-cys,k,q);
+    lapiz->setColor("green");
+    q->setPen(*lapiz);
+    q->drawEllipse(cxs-2,611-cys-2,4,4);
+    lapiz->setColor("black");
+    q->setPen(*lapiz);
     ui->base->setPixmap(*pixmap);
 
 }
@@ -132,4 +138,6 @@ void MainWindow::on_clean_pressed()
     ui->cory_search->setEnabled(0);
     ui->knodes->setEnabled(0);
     ui->pushButton_3->setEnabled(0);
+    ui->base->setPixmap(*pixmap);
+
 }
