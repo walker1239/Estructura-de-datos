@@ -2,6 +2,8 @@ Vantage point tree
 =========
 
 ![](https://github.com/walker1239/Estructura-de-datos/blob/master/vptree/img/points.PNG "points")
+
+
 ![](https://github.com/walker1239/Estructura-de-datos/blob/master/vptree/img/vptree.png "vp tree")
 
 ## Description
@@ -70,6 +72,8 @@ public:
   ![](https://github.com/walker1239/Estructura-de-datos/blob/master/vptree/img/search.png "search")
 ### Implementation and theory
 Part of the implementation of search and the theory for the basic guide of the code was from the article: [Dynamic vp-Tree Indexing for n-Nearest Neighbor Search Given PairWise Distances](https://www.researchgate.net/publication/243134425_Dynamic_vp-Tree_Indexing_for_n-Nearest_Neighbor_Search_Given_PairWise_Distances) for more details.
+
+
 Part of the implementation of insert and the theory for the basic guide of the code was from the article: [Data Structures and Algorithms for Nearest Neighbor Search in General Metric Spaces](https://www.researchgate.net/publication/2596667_Data_Structures_and_Algorithms_for_Nearest_Neighbor_Search_in_General_Metric_Spaces) for more details.
 ## Authors
 - [Walker Fernando Manrique Chalco](https://github.com/walker1239)
